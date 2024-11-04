@@ -1,0 +1,16 @@
+{
+  "name": "cooking-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node tester.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies":{
+    "recipes":"^1.0.0",
+    "tester":"^1.4.5"
+  }
+}
