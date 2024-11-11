@@ -1,0 +1,14 @@
+{
+    "name":"gardening-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "node test/plant-list.spec.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+
+}
