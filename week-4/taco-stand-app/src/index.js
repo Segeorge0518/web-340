@@ -1,14 +1,14 @@
 /**
- * Author:
- * Date:
- * File Name:
+ * Author: Sara George
+ * Date: 11/16/2024
+ * File Name: index.js
  * Description:
  */
 
 "use strict";
 
 const readline = require("readline");
-const TacoStandEmitter = require("./tacoStand");
+const TacoStandEmitter = require("../src/taco-stand");
 
 const tacoStand = new TacoStandEmitter();
 
