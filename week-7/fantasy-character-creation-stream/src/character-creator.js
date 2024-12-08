@@ -3,15 +3,27 @@ const { Duplex } = require('stream');
 class CharacterCreator extends Duplex {
   constructor(options) {
     super(options);
-    // TODO: Initialize your class here
+    this.characterData = '';
   }
 
   _write(chunk, encoding, callback) {
-    // TODO: Implement your _write method here
+    const data = chunk.toString();
+    if (!data) {
+      this.emit('error', new Error('Empty string not allowed'));
+      return callback();
+    }
+    this.characterData = data;
+    callback();
   }
 
   _read(size) {
-    // TODO: Implement your _read method here
+    this.push(this.formatCharacterDescription());
+    this.push(null);
+  }
+
+  formatCharacterDescription() {
+    const { class: charClass, gender, funFact } = JSON.parse(this.characterData);
+    return `Character Class: ${charClass}, Gender: ${gender}, Fun Fact: ${funFact}`;
   }
 }
 
