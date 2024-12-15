@@ -14,7 +14,7 @@
 // const fs = require('fs');
 
 // For promises:
-// const fs = require('fs').promises;
+const fs = require('fs').promises;
 
 describe("Character Creation Module", () => {
   let createCharacter;
@@ -22,12 +22,27 @@ describe("Character Creation Module", () => {
 
   beforeEach(() => {
     jest.resetModules();
-    // TODO: Set up your mocks here
+    jest.mock('fs').promises;
     ({ createCharacter, getCharacters } = require('../src/character-creation'));
   });
 
-  // TODO: Write your tests here. You should have at least three tests:
-  // 1. Test that createCharacter writes a new character to the file
-  // 2. Test that getCharacters reads characters from the file
-  // 3. Test that createCharacter handles errors when writing to the file
+
+  test('createCharacter writes a new character to the file', async () => {
+    const character = { class: 'Warrior', gender: 'Male', funFact: 'Loves dragons' };
+    await createCharacter(character);
+    const characters = await getCharacters();
+    expect(characters).toContainEqual(character);
+  });
+
+  test('getCharacters reads characters from the file', async () => {
+    const characters = await getCharacters();
+    expect(Array.isArray(characters)).toBe(true);
+  });
+
+  test('createCharacter handles errors when writing to the file', async () => {
+    jest.spyOn(fs, 'writeFile').mockImplementationOnce(() => {
+      throw new Error('Write error');
+    });
+    await expect(createCharacter({ class: 'Mage', gender: 'Female', funFact: 'Can fly' })).resolves.toBeUndefined();
+  });
 });

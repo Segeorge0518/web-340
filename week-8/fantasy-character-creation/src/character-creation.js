@@ -28,19 +28,32 @@ function getCharacters(callback) {
 */
 
 // For promises:
-/*
+
 const fs = require('fs').promises;
 
 async function createCharacter(character) {
-  // TODO: Implement this function
+  try {
+    const data = await fs.readFile(charactersFile, 'utf8');
+    const characters = JSON.parse(data);
+    characters.push(character);
+    await fs.writeFile(charactersFile, JSON.stringify(characters, null, 2));
+  } catch (error) {
+    console.error('Error creating character:', error);
+  }
 }
 
 async function getCharacters() {
-  // TODO: Implement this function
+  try {
+    const data = await fs.readFile(charactersFile, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error getting characters:', error);
+    return [];
+  }
 }
-*/
+
 
 // Uncomment the appropriate exports depending on whether you're using callbacks or promises:
 
 // module.exports = { createCharacter, getCharacters }; // For callbacks
-// module.exports = { createCharacter, getCharacters }; // For promises
+module.exports = { createCharacter, getCharacters };
